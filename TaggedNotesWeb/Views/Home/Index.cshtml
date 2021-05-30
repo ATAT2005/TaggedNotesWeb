@@ -1,0 +1,110 @@
+﻿@model ViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+<div>
+    <div id="app">
+        <table border="1" width="100%">
+            <tr>
+                <td>
+                    <h2>Notes</h2>
+                </td>
+                <td>
+                    <h2>Tags</h2>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <td><h7>Filter notes:</h7></td>
+                            <td><input type="text" v-model='filterNote'></td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <table>
+                        <tr>
+                            <td><h7>Filter tags:</h7></td>
+                            <td><input type="text" v-model='filterTag'></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td width="75%">
+                    <h5>
+                        <p v-for='(note, index) in showNotes()'
+                           v-on:mouseover="showLinkedTags = true, linkedTags = note.linkedTags"
+                           v-on:mouseleave="showLinkedTags = false"
+                           v-bind:key="index"
+                           v-bind:style="{ backgroundColor: index % 2 === 0 ? 'honeydew' : 'ivory', }">
+                            {{note.text}}
+                        </p>
+                    </h5>
+                </td>
+                <td rowspan="2" align="center">
+                    <h5><p v-for='tag in showTags()'>{{tag.name}}</p></h5>
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <h2>Linked Tags</h2>
+
+                    <div v-if="showLinkedTags">
+                        <h2>{{linkedTags}}</h2>
+                    </div>
+                    <div v-else>
+                        <h7>...hover the note to see its linked tags...</h7>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <script type="text/javascript">
+        var sample = new Vue({
+            el: document.getElementById('app'),
+            data: {
+                filterNote: '',
+
+                filterTag: '',
+
+                notes:  @Json.Serialize(Model.Notes),
+
+                tags: @Json.Serialize(Model.Tags),
+
+                showLinkedTags: false,
+
+                linkedTags: ''
+                },
+
+            methods: {
+                showNotes() {
+                    return this.notes.filter(note => note.text.toLowerCase().indexOf(this.filterNote.toLowerCase()) !== -1);
+                },
+
+                showTags() {
+                    return this.tags.filter(tag => tag.name.toLowerCase().indexOf(this.filterTag.toLowerCase()) !== -1);
+                },
+            }
+        });
+    </script>
+
+    <h1>TODO:</h1>
+    <ul>
+        <li>Allow user to add notes</li>
+        <li>Allow user to edit note text</li>
+        <li>Allow user to delete note</li>
+        <li>Allow user to add tag</li>
+        <li>Allow user to edit tag name</li>
+        <li>Allow user to delete tag</li>
+        <li>Allow user to assign tags to notes</li>
+        <li>Allow user to mark tags with checks</li>
+        <li>Allow user to filter notes by checking tags</li>
+    </ul>
+</div>
