@@ -17,23 +17,27 @@ namespace TaggedNotesWeb.Logic.Services
 	{
 		IUnitOfWork _unitOfWork { get; set; }
 
-		IMapper _mapper { get; set; }
+		IMapper _mapperDtoToDal { get; set; }
+
+		IMapper _mapperDalToDto { get; set; }
 
 		public LinkService(IUnitOfWork unitOfWork)
 		{
 			_unitOfWork = unitOfWork;
 
-			_mapper = new MapperConfiguration(cfg => cfg.CreateMap<LinkDAL, LinkDTO>()).CreateMapper();
+			_mapperDalToDto = new MapperConfiguration(cfg => cfg.CreateMap<LinkDAL, LinkDTO>()).CreateMapper();
+
+			_mapperDtoToDal = new MapperConfiguration(cfg => cfg.CreateMap<LinkDTO, LinkDAL>()).CreateMapper();
 		}
 
 		public void AddLink(LinkDTO Link)
 		{
-			_unitOfWork.Links.Create(_mapper.Map<LinkDTO, LinkDAL>(Link));
+			_unitOfWork.Links.Create(_mapperDtoToDal.Map<LinkDTO, LinkDAL>(Link));
 		}
 
 		public void UpdateLink(LinkDTO Link)
 		{
-			_unitOfWork.Links.Update(_mapper.Map<LinkDTO, LinkDAL>(Link));
+			_unitOfWork.Links.Update(_mapperDtoToDal.Map<LinkDTO, LinkDAL>(Link));
 		}
 
 		public void DeleteLink(LinkDTO Link)
@@ -43,12 +47,12 @@ namespace TaggedNotesWeb.Logic.Services
 
 		public LinkDTO GetLink(int? idLink)
 		{
-			return _mapper.Map<LinkDAL, LinkDTO>(_unitOfWork.Links.Read(idLink));
+			return _mapperDalToDto.Map<LinkDAL, LinkDTO>(_unitOfWork.Links.Read(idLink));
 		}
 
 		public IEnumerable<LinkDTO> GetLinks()
 		{
-			return _mapper.Map<IEnumerable<LinkDAL>, IEnumerable<LinkDTO>>(_unitOfWork.Links.ReadAll());
+			return _mapperDalToDto.Map<IEnumerable<LinkDAL>, IEnumerable<LinkDTO>>(_unitOfWork.Links.ReadAll());
 		}
 
 		public void Dispose()

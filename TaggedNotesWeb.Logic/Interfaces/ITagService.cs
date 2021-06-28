@@ -46,5 +46,10 @@ namespace TaggedNotesWeb.Logic.Interfaces
 		/// Disposes resources
 		/// </summary>
 		void Dispose();
+
+		/// <summary>
+		/// Saves changes
+		/// </summary>
+		void SaveChanges();
 	}
 }

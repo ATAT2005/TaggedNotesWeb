@@ -17,23 +17,28 @@ namespace TaggedNotesWeb.Logic.Services
 	{
 		IUnitOfWork _unitOfWork { get; set; }
 
-		IMapper _mapper { get; set; }
+		IMapper _mapperDtoToDal { get; set; }
+
+		IMapper _mapperDalToDto { get; set; }
 
 		public TagService(IUnitOfWork unitOfWork)
 		{
 			_unitOfWork = unitOfWork;
 
-			_mapper = new MapperConfiguration(cfg => cfg.CreateMap<TagDAL, TagDTO>()).CreateMapper();
+			_mapperDalToDto = new MapperConfiguration(cfg => cfg.CreateMap<TagDAL, TagDTO>()).CreateMapper();
+
+			_mapperDtoToDal = new MapperConfiguration(cfg => cfg.CreateMap<TagDTO, TagDAL>()).CreateMapper();
 		}
 
 		public void AddTag(TagDTO Tag)
 		{
-			_unitOfWork.Tags.Create(_mapper.Map<TagDTO, TagDAL>(Tag));
+			Tag.Id = 0;
+			_unitOfWork.Tags.Create(_mapperDtoToDal.Map<TagDTO, TagDAL>(Tag));
 		}
 
 		public void UpdateTag(TagDTO Tag)
 		{
-			_unitOfWork.Tags.Update(_mapper.Map<TagDTO, TagDAL>(Tag));
+			_unitOfWork.Tags.Update(_mapperDtoToDal.Map<TagDTO, TagDAL>(Tag));
 		}
 
 		public void DeleteTag(TagDTO Tag)
@@ -43,17 +48,22 @@ namespace TaggedNotesWeb.Logic.Services
 
 		public TagDTO GetTag(int? idTag)
 		{
-			return _mapper.Map<TagDAL, TagDTO>(_unitOfWork.Tags.Read(idTag));
+			return _mapperDalToDto.Map<TagDAL, TagDTO>(_unitOfWork.Tags.Read(idTag));
 		}
 
 		public IEnumerable<TagDTO> GetTags()
 		{
-			return _mapper.Map<IEnumerable<TagDAL>, IEnumerable<TagDTO>>(_unitOfWork.Tags.ReadAll());
+			return _mapperDalToDto.Map<IEnumerable<TagDAL>, IEnumerable<TagDTO>>(_unitOfWork.Tags.ReadAll());
 		}
 
 		public void Dispose()
 		{
 			_unitOfWork.Dispose();
+		}
+
+		public void SaveChanges()
+		{
+			_unitOfWork.Save();
 		}
 	}
 }

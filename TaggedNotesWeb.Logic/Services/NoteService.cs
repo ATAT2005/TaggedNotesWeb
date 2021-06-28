@@ -17,23 +17,28 @@ namespace TaggedNotesWeb.Logic.Services
 	{
 		IUnitOfWork _unitOfWork { get; set; }
 
-		IMapper _mapper { get; set; }
+		IMapper _mapperDtoToDal { get; set; }
+
+		IMapper _mapperDalToDto { get; set; }
 
 		public NoteService(IUnitOfWork unitOfWork)
 		{
 			_unitOfWork = unitOfWork;
 
-			_mapper = new MapperConfiguration(cfg => cfg.CreateMap<NoteDAL, NoteDTO>()).CreateMapper();
+			_mapperDalToDto = new MapperConfiguration(cfg => cfg.CreateMap<NoteDAL, NoteDTO>()).CreateMapper();
+
+			_mapperDtoToDal = new MapperConfiguration(cfg => cfg.CreateMap<NoteDTO, NoteDAL> ()).CreateMapper();
 		}
 
 		public void AddNote(NoteDTO note)
 		{
-			_unitOfWork.Notes.Create(_mapper.Map<NoteDTO, NoteDAL>(note));
+			note.Id = 0;
+			_unitOfWork.Notes.Create(_mapperDtoToDal.Map<NoteDTO, NoteDAL>(note));
 		}
 
 		public void UpdateNote(NoteDTO note)
 		{
-			_unitOfWork.Notes.Update(_mapper.Map<NoteDTO, NoteDAL>(note));
+			_unitOfWork.Notes.Update(_mapperDtoToDal.Map<NoteDTO, NoteDAL>(note));
 		}
 
 		public void DeleteNote(NoteDTO note)
@@ -43,17 +48,22 @@ namespace TaggedNotesWeb.Logic.Services
 
 		public NoteDTO GetNote(int? idNote)
 		{
-			return _mapper.Map<NoteDAL, NoteDTO>(_unitOfWork.Notes.Read(idNote));
+			return _mapperDalToDto.Map<NoteDAL, NoteDTO>(_unitOfWork.Notes.Read(idNote));
 		}
 
 		public IEnumerable<NoteDTO> GetNotes()
 		{
-			return _mapper.Map<IEnumerable<NoteDAL>, IEnumerable<NoteDTO>>(_unitOfWork.Notes.ReadAll());
+			return _mapperDalToDto.Map<IEnumerable<NoteDAL>, IEnumerable<NoteDTO>>(_unitOfWork.Notes.ReadAll());
 		}
 
 		public void Dispose()
 		{
 			_unitOfWork.Dispose();
+		}
+
+		public void SaveChanges()
+		{
+			_unitOfWork.Save();
 		}
 	}
 }
