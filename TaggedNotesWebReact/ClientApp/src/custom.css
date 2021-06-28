@@ -1,0 +1,39 @@
+/* Provide sufficient contrast against white background */
+a {
+  color: #0366d6;
+}
+
+code {
+  color: #E01A76;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+table, th, td {
+    border: solid black;
+    border-width: 1px;
+}
+
+.maintd {
+    vertical-align: top;
+}
+
+.tagcell {
+    align-content:center;
+}
+
+.strike {
+    text-decoration: line-through;
+}
+
+tr:nth-child(even) {
+    background: #CCC
+}
+
+tr:nth-child(odd) {
+    background: #FFF
+}
