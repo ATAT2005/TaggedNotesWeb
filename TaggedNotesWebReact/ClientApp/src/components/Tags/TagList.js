@@ -8,6 +8,8 @@ export class TagList extends React.Component {
         this.state = { items: this.props.items };
 
         this.filterList = this.filterList.bind(this);
+
+        this.filterRef = React.createRef();
     }
 
     filterList(e) {
@@ -18,10 +20,16 @@ export class TagList extends React.Component {
         this.setState({ items: filteredList });
     }
 
+    componentWillReceiveProps(props) {
+        this.setState({ items: props.items })
+        this.filterRef.current.value = '';
+    }
+
     render() {
         return (
             <div>
-                <input placeholder="<filter tags>" onChange={this.filterList} />
+                <input placeholder="<filter tags>" ref={this.filterRef} onChange={this.filterList} />
+                <table class="datatable">
                 {
                     this.state.items.map(tag => {
                         return <TagItem
@@ -31,6 +39,7 @@ export class TagList extends React.Component {
                             removeItem={this.props.removeItem} />
                     })
                 }
+                </table>
             </div>);
     }
 }
