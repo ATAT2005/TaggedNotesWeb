@@ -22,19 +22,11 @@ export class FetchData extends Component {
 
     static renderEditor(notes, tags) {
         return (
-            <div width="100%">
-                <table>
-                    <tbody>
-                        <tr>
-                            <td width="75%" class="maintd">
-                                <Notes items={notes} />
-                            </td>
-                            <td width="25%" class="maintd">
-                                <Tags items={tags} />
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div>
+                <div align="center" class='parent flex-parent'>
+                    <div class='child flex-notes'><Notes items={notes} /></div>
+                    <div class='child flex-tags'><Tags items={tags} /></div>
+                </div>
 
                 <h2>Description</h2>
                 <h5>
@@ -46,28 +38,25 @@ export class FetchData extends Component {
                 </h5>
                 <h2>TODO:</h2>
                 <ul>
-                    <li class="strike">Show note list with linked tags</li>
-                    <li class="strike">Show tag list</li>
-                    <li class="strike">Allow user to add notes</li>
-                    <li class="strike">Allow user to add tags</li>
-                    <li class="strike">Allow user to delete notes</li>
-                    <li class="strike">Allow user to delete tags</li>
-                    <li class="strike">Allow user to save notes to DB</li>
-                    <li class="strike">Allow user to save tags to DB</li>
-                    <li class="strike">Allow user to filter notes by text</li>
-                    <li class="strike">Allow user to filter tags by name</li>
-                    <li>Center tags in column</li>
-                    <li>Make common React component for Notes and List</li>
-                    <li>Make common method for saving Notes and List simultaneously</li>
-                    <li>Allow user to edit note text</li>
-                    <li>Allow user to edit tag name</li>
+                    <li class="strike">Show tags and notes list with linked tags</li>
+                    <li class="strike">Allow user to add tags and notes</li>
+                    <li class="strike">Allow user to delete tags and notes</li>
+                    <li class="strike">Allow user to save tags and notes to DB</li>
+                    <li class="strike">Allow user to filter tags and notes by text</li>
+                    <li class="strike">Prevent adding note and tag with duplicate text</li>
+                    <li class="strike">Prevent resizing tag and note column after filtering</li>
+                    <li class="strike">Add CSS classes for cells</li>
+                    <li class="strike">Reset filters after adding tag or note</li>
+                    <li>Use hooks for storing state</li>
+                    <li>Convert some components from classes to functional components</li>
+                    <li>Make common React component for Notes and Tags</li>
+                    <li>Make common method for saving Notes and Tags simultaneously</li>
+                    <li>Allow user to edit note/tag text</li>
                     <li>Allow user to link tags to notes</li>
                     <li>Allow user to mark tags with checks</li>
                     <li>Allow user to filter notes by checking tags</li>
-                    <li>Prevent note text column from resizing after filtering</li>
-                    <li>Prevent tag name column from resizing after filtering</li>
                     <li>Add highlight for hovered buttons</li>
-                    <li>Add CSS classes for buttons, cells, headers</li>
+                    <li>Add CSS classes for buttons</li>
                     <li>Add more unit tests</li>
                 </ul>
             </div>
