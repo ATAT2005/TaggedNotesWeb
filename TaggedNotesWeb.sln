@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31229.75
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaggedNotesWebReact", "TaggedNotesWebReact\TaggedNotesWebReact.csproj", "{A16DB5B1-EDA2-45D2-82F0-205C86C4ACDC}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaggedNotesWebVueJs", "TaggedNotesWeb\TaggedNotesWebVueJs.csproj", "{C98ABDEC-613B-4698-A3F1-24E6EFBFC42B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaggedNotesWeb.DataAccess", "TaggedNotesWeb.DataAccess\TaggedNotesWeb.DataAccess.csproj", "{D7288005-DA4C-4BC8-9625-A68F65E9F71F}"
@@ -16,8 +18,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaggedNotesWeb.DataAccess.Tests", "TaggedNotesWeb.DataAccess.Tests\TaggedNotesWeb.DataAccess.Tests.csproj", "{E5133BC1-56E6-4D53-A29A-A8B5D29003DC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaggedNotesWebVueJs.Tests", "TaggedNotesWeb.Tests\TaggedNotesWebVueJs.Tests.csproj", "{979EC3E2-B9CE-4154-A001-88E967C46D53}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaggedNotesWebReact", "TaggedNotesWebReact\TaggedNotesWebReact.csproj", "{A16DB5B1-EDA2-45D2-82F0-205C86C4ACDC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaggedNotesWebReact.Tests", "TaggedNotesWebReact.Tests\TaggedNotesWebReact.Tests.csproj", "{DD03D8F4-6FCF-4B06-93A8-FA95F74EE213}"
 EndProject
