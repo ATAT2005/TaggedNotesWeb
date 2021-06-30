@@ -13,14 +13,16 @@ export class AddNewTag extends React.Component {
 
     onSubmit = (event) => {
         event.preventDefault();
-        const newItemValue = this.inputRef.current.value;
+        const newItemValue = this.inputRef.current.value.trim();
 
-        if (!newItemValue) { return; }
+        if (!newItemValue || this.props.tags.filter(e => e.name === newItemValue).length > 0) {
+            return;
+        }
 
         const trimValue = newItemValue.trim();
 
         if (trimValue.length) {
-            this.props.addItem({ name: newItemValue, id: this.props.getCount() + 1 });
+            this.props.addItem({ name: newItemValue, id: this.props.getMaxId() + 1 });
             this.formRef.current.reset();
         }
     }

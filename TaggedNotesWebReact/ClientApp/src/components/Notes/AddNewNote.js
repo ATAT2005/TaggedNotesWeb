@@ -13,14 +13,16 @@ export class AddNewNote extends React.Component {
 
     onSubmit = (event) => {
         event.preventDefault();
-        const newItemValue = this.inputRef.current.value;
+        const newItemValue = this.inputRef.current.value.trim();
 
-        if (!newItemValue) { return; }
+        if (!newItemValue || this.props.notes.filter(e => e.text === newItemValue).length > 0) {
+            return;
+        }
 
         const trimValue = newItemValue.trim();
 
         if (trimValue.length) {
-            this.props.addItem({ text: newItemValue, id: this.props.getCount() + 1 });
+            this.props.addItem({ text: newItemValue, id: this.props.getMaxId() + 1 });
             this.formRef.current.reset();
         }
     }
