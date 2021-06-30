@@ -13,6 +13,9 @@ using TaggedNotesWeb.Logic.Entities;
 
 namespace TaggedNotesWebReact.Controllers
 {
+	/// <summary>
+	/// Web API contoller for notes
+	/// </summary>
 	[ApiController]
 	[Route("[controller]")]
 	public class NotesController : ControllerBase
@@ -47,6 +50,10 @@ namespace TaggedNotesWebReact.Controllers
 			_linkMapper = new MapperConfiguration(cfg => cfg.CreateMap<LinkDTO, LinkModel>()).CreateMapper();
 		}
 
+		/// <summary>
+		/// Returns all notes
+		/// </summary>
+		/// <returns>All note collection</returns>
 		[HttpGet]
 		public IEnumerable<NoteModel> Get()
 		{
@@ -70,6 +77,10 @@ namespace TaggedNotesWebReact.Controllers
 			return viewModel.Notes;
 		}
 
+		/// <summary>
+		/// Saves notes to database
+		/// </summary>
+		/// <param name="notes">Note collection to save</param>
 		[HttpPost]
 		public void Post([FromBody] IEnumerable<NoteModel> notes)
 		{

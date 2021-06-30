@@ -13,6 +13,9 @@ using TaggedNotesWeb.Logic.Entities;
 
 namespace TaggedNotesWebReact.Controllers
 {
+	/// <summary>
+	/// Web API contoller for tags
+	/// </summary>
 	[ApiController]
 	[Route("[controller]")]
 	public class TagsController : ControllerBase
@@ -37,6 +40,10 @@ namespace TaggedNotesWebReact.Controllers
 			_tagModelToDtoMapper = new MapperConfiguration(cfg => cfg.CreateMap<TagModel, TagDTO>()).CreateMapper();
 		}
 
+		/// <summary>
+		/// Returns all tags
+		/// </summary>
+		/// <returns>All tag collection</returns>
 		[HttpGet]
 		public IEnumerable<TagModel> Get()
 		{
@@ -49,35 +56,32 @@ namespace TaggedNotesWebReact.Controllers
 			return viewModel.Tags;
 		}
 
+		/// <summary>
+		/// Saves tags to database
+		/// </summary>
+		/// <param name="tags">Tag collection to save</param>
 		[HttpPost]
 		public void Post([FromBody] IEnumerable<TagModel> tags)
 		{
-			try
+			var tagsDto = _tagService.GetTags();
+
+			foreach (var tag in tags)
 			{
-				var tagsDto = _tagService.GetTags();
-				
-				foreach (var tag in tags)
+				var existingNote = _tagService.GetTag(tag.Id);
+				if (existingNote == null)
 				{
-					var existingNote = _tagService.GetTag(tag.Id);
-					if (existingNote == null)
-					{
-						var addedTag = _tagModelToDtoMapper.Map<TagModel, TagDTO>(tag);
-						_tagService.AddTag(addedTag);
-					}
+					var addedTag = _tagModelToDtoMapper.Map<TagModel, TagDTO>(tag);
+					_tagService.AddTag(addedTag);
+				}
+			}
+
+			foreach (var tagDto in tagsDto)
+				if (!tags.Any(x => x.Id == tagDto.Id))
+				{
+					_tagService.DeleteTag(tagDto);
 				}
 
-				foreach (var tagDto in tagsDto)
-					if (!tags.Any(x => x.Id == tagDto.Id))
-					{
-						_tagService.DeleteTag(tagDto);
-					}
-
-				_tagService.SaveChanges();
-			}
-			catch (Exception ex)
-			{
-
-			}
+			_tagService.SaveChanges();
 		}
 	}
 }
