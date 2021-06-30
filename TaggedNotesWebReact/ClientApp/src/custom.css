@@ -1,39 +1,53 @@
-/* Provide sufficient contrast against white background */
-a {
-  color: #0366d6;
-}
-
-code {
-  color: #E01A76;
-}
-
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
-}
-
 table, th, td {
     border: solid black;
     border-width: 1px;
 }
 
-.maintd {
-    vertical-align: top;
-}
-
-.tagcell {
-    align-content:center;
-}
-
-.strike {
-    text-decoration: line-through;
-}
-
-tr:nth-child(even) {
+table.datatable tr:nth-child(even) {
     background: #CCC
 }
 
-tr:nth-child(odd) {
+table.datatable tr:nth-child(odd) {
     background: #FFF
+}
+
+li.strike {
+    text-decoration: line-through;
+}
+
+.flex-parent {
+    display: flex;
+}
+
+.flex-notes {
+    flex: 1;
+    background-color: ivory;
+    padding: 1rem;
+}
+
+.flex-tags {
+    display: inline-block;
+    background-color: beige;
+    padding: 1rem;
+}
+
+td.tagCell {
+    width: 180px;
+    max-width: 180px;
+    word-wrap: break-word;
+    text-align: center;
+}
+
+td.noteCell {
+    width: 800px;
+    max-width: 800px;
+    word-wrap: break-word;
+    text-align: justify;
+}
+
+td.linkedTagsCell {
+    width: 100px;
+    max-width: 100px;
+    word-wrap: break-word;
+    text-align: center;
 }
