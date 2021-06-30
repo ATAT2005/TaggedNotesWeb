@@ -13,9 +13,9 @@ export class NoteItem extends React.Component {
     render() {
         return (
             <tr>
-                <td><button size="small" onClick={this.onClick}>X</button></td>
-                <td>{this.props.text}</td>
-                <td>{this.props.linkedTags}</td>
+                <td><button onClick={this.onClick}>X</button></td>
+                <td className="noteCell">{this.props.text}</td>
+                <td className="linkedTagsCell">{this.props.linkedTags}</td>
             </tr>
         );
     }
