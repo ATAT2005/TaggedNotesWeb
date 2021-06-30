@@ -20,8 +20,10 @@ export class Tags extends React.Component {
         this.setState({ tags: newList });
     }
 
-    getCount = () => {
-        return this.state.tags.length;
+    getMaxId = () => {
+        var max = this.state.tags.reduce((acc, cur) => acc = acc > cur.id ? acc : cur.id, 1);
+
+        return max;
     }
 
     //todo: extract this method to a common method in a common component Editor (which will unite Notes and Tags components)
@@ -43,10 +45,12 @@ export class Tags extends React.Component {
 
     render() {
         return (
-            <div>
-                <button onClick={this.saveTags}>Save tags</button>
-                <AddNewTag addItem={this.addItem} getCount={this.getCount} />
-                <TagList items={this.state.tags} removeItem={this.removeItem} />
+            <div align="left">
+                <div><button onClick={this.saveTags}>Save tags</button></div>
+                <br />
+                <div><AddNewTag tags={this.state.tags} addItem={this.addItem} getMaxId={this.getMaxId} /></div>
+                <br />
+                <div><TagList items={this.state.tags} removeItem={this.removeItem} /></div>
             </div>
         );
     }
