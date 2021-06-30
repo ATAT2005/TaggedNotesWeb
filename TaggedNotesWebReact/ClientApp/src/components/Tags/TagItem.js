@@ -12,9 +12,9 @@ export class TagItem extends React.Component {
 
     render() {
         return (
-            <tr class="tagcell">
-                <td>{this.props.name}</td>
-                <td><button size="small" onClick={this.onClick}>X</button></td>
+            <tr>
+                <td className="tagCell">{this.props.name}</td>
+                <td><button onClick={this.onClick}>X</button></td>
             </tr>
         );
     }
