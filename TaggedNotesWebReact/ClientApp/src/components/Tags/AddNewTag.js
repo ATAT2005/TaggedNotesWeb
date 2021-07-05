@@ -1,40 +1,37 @@
-﻿import React from 'react';
+﻿import React, { useEffect, useState } from 'react';
 
-export class AddNewTag extends React.Component {
-    constructor(props) {
-        super(props);
-        this.formRef = React.createRef();
-        this.inputRef = React.createRef();
-    }
+/// functional component - allows adding a new tag
+const AddNewTag = (props) => {
+    const [form, setForm] = useState(null);
+    const [newItemValue, setNewInputValue] = useState('');
 
-    componentDidMount() {
-        this.inputRef.current.focus();
-    }
-
-    onSubmit = (event) => {
+    function onSubmit(event) {
         event.preventDefault();
-        const newItemValue = this.inputRef.current.value.trim();
 
-        if (!newItemValue || this.props.tags.filter(e => e.name === newItemValue).length > 0) {
+        if (!newItemValue || props.tags.filter(e => e.name === newItemValue).length > 0) {
             return;
         }
 
         const trimValue = newItemValue.trim();
 
         if (trimValue.length) {
-            this.props.addItem({ name: newItemValue, id: this.props.getMaxId() + 1 });
-            this.formRef.current.reset();
+            props.addItem({ name: newItemValue, id: props.getMaxId() + 1 });
+            setNewInputValue('');
         }
     }
 
-    render() {
-        return (
-            <form ref={this.formRef} onSubmit={this.onSubmit}>
-                <div>
-                    <input type="text" ref={this.inputRef} placeholder="<new tag name>"/>
-                    <button type="submit">Add</button>
-                </div>
-            </form>
-        );
+    function onChange(e) {
+        setNewInputValue(e.target.value);
     }
+
+    return (
+        <form onSubmit={onSubmit}>
+            <div>
+                <input type="text" placeholder="<new tag name>" value={newItemValue} onChange={onChange}/>
+                <button type="submit">Add</button>
+            </div>
+        </form>
+    );
 }
+
+export default AddNewTag;
