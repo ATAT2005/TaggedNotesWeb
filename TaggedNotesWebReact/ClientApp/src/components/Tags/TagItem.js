@@ -1,21 +1,18 @@
 ﻿import React from 'react';
 import './../../custom.css';
 
-export class TagItem extends React.Component {
-    constructor(props) {
-        super(props);
+/// functional component - a single tag item
+ const TagItem = (props) => {
+    function onClick() {
+        props.removeItem(props.id);
     }
 
-    onClick = () => {
-        this.props.removeItem(this.props.id);
-    }
-
-    render() {
-        return (
-            <tr>
-                <td className="tagCell">{this.props.name}</td>
-                <td><button onClick={this.onClick}>X</button></td>
-            </tr>
-        );
-    }
+    return (
+        <tr>
+            <td className="tagCell">{props.name}</td>
+            <td><button onClick={onClick}>X</button></td>
+        </tr>
+    );
 }
+
+export default TagItem;
