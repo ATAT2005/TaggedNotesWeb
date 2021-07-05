@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Notes } from './Notes/Notes'
-import { Tags } from './Tags/Tags'
+import Tags from './Tags/Tags'
 import './../custom.css';
 
 export class FetchData extends Component {
@@ -47,8 +47,8 @@ export class FetchData extends Component {
                     <li class="strike">Prevent resizing tag and note column after filtering</li>
                     <li class="strike">Add CSS classes for cells</li>
                     <li class="strike">Reset filters after adding tag or note</li>
-                    <li>Use hooks for storing state</li>
-                    <li>Convert some components from classes to functional components</li>
+                    <li class="strike">Convert AddNewTag, TagItem and TagList from class components to functional components</li>
+                    <li class="strike">Use hooks in Tags, AddNewTag and TagList functional components for working with state and effect</li>
                     <li>Make common React component for Notes and Tags</li>
                     <li>Make common method for saving Notes and Tags simultaneously</li>
                     <li>Allow user to edit note/tag text</li>
