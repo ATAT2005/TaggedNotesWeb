@@ -1,5 +1,6 @@
 ﻿import React from 'react';
 
+/// class component - allows adding a new note
 export class AddNewNote extends React.Component {
     constructor(props) {
         super(props);

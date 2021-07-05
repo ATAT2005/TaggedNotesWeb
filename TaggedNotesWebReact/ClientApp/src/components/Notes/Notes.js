@@ -2,6 +2,7 @@
 import { NoteList } from './NoteList';
 import { AddNewNote } from './AddNewNote';
 
+/// class component - shows all notes, allows adding new notes, deleting, filtering
 export class Notes extends React.Component {
     constructor(props) {
         super(props);

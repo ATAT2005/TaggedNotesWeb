@@ -1,6 +1,7 @@
 ﻿import React from 'react';
 import './../../custom.css';
 
+/// class component - a single note item
 export class NoteItem extends React.Component {
     constructor(props) {
         super(props);

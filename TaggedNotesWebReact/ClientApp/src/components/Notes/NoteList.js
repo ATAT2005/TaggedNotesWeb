@@ -1,6 +1,7 @@
 ﻿import React from 'react';
 import { NoteItem } from './NoteItem';
 
+/// class component - a list of notes
 export class NoteList extends React.Component {
     constructor(props) {
         super(props);
