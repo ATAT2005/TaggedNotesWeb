@@ -1,45 +1,47 @@
-﻿import React from 'react';
-import { TagItem } from './TagItem';
+﻿import React, { useEffect, useState } from 'react';
+import TagItem from './TagItem';
 
-export class TagList extends React.Component {
-    constructor(props) {
-        super(props);
+/// functional component - a list of tags
+const TagList = (props) => {
 
-        this.state = { items: this.props.items };
+    const [items, setItems] = useState(props.items);
 
-        this.filterList = this.filterList.bind(this);
+    const [filterValue, setFilterValue] = useState('');
 
-        this.filterRef = React.createRef();
-    }
+    function filterList(e) {
+        setFilterValue(e.target.value);
 
-    filterList(e) {
-        var filteredList = this.props.items.filter(function (item) {
+        var filteredList = props.items.filter(function (item) {
             return item.name.toLowerCase().search(e.target.value.toLowerCase()) !== -1;
         });
 
-        this.setState({ items: filteredList });
+        setItems(filteredList);
     }
 
-    componentWillReceiveProps(props) {
-        this.setState({ items: props.items })
-        this.filterRef.current.value = '';
-    }
+    useEffect(() => {
+        setItems(props.items);
+    }, [props.items])
 
-    render() {
-        return (
-            <div>
-                <input placeholder="<filter tags>" ref={this.filterRef} onChange={this.filterList} />
-                <table class="datatable">
+    useEffect(() => {
+        setFilterValue('');
+    }, [props.items])
+
+    return (
+        <div>
+            <input type="text" placeholder="<filter tags>" value={filterValue} onChange={filterList} />
+
+            <table class="datatable">
                 {
-                    this.state.items.map(tag => {
+                    items.map(tag => {
                         return <TagItem
                             key={tag.id}
                             id={tag.id}
                             name={tag.name}
-                            removeItem={this.props.removeItem} />
+                            removeItem={props.removeItem} />
                     })
                 }
-                </table>
-            </div>);
-    }
+            </table>
+        </div>);
 }
+
+export default TagList;
