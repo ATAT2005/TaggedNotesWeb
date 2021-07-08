@@ -88,12 +88,14 @@ namespace TaggedNotesWebReact.Controllers
 
 			foreach (var note in notes)
 			{
+				var dtoNote = _noteModelToDtoMapper.Map<NoteModel, NoteDTO>(note);
+
 				var existingNote = _noteService.GetNote(note.Id);
+				
 				if (existingNote == null)
-				{
-					var addedNote = _noteModelToDtoMapper.Map<NoteModel, NoteDTO>(note);
-					_noteService.AddNote(addedNote);
-				}
+					_noteService.AddNote(dtoNote);
+				else
+					_noteService.UpdateNote(dtoNote);
 			}
 
 			foreach (var noteDto in notesDto)
