@@ -1,23 +1,42 @@
-﻿import React from 'react';
+﻿import React, { useState, useRef } from 'react';
 import './../../custom.css';
+import Editable from "../Editable";
 
-/// class component - a single note item
-export class NoteItem extends React.Component {
-    constructor(props) {
-        super(props);
+/// functional component - a single note item
+const NoteItem = (props) => {
+    const [note, setNote] = useState(props.text);
+    const inputRef = useRef();
+
+    function onClick() {
+        props.removeItem(props.id);
     }
 
-    onClick = () => {
-        this.props.removeItem(this.props.id);
+    function updateItem(e) {
+        setNote(e);
+        props.updateItem(props.id, e);
     }
 
-    render() {
-        return (
-            <tr>
-                <td><button onClick={this.onClick}>X</button></td>
-                <td className="noteCell">{this.props.text}</td>
-                <td className="linkedTagsCell">{this.props.linkedTags}</td>
-            </tr>
-        );
-    }
+    return (
+        <tr>
+            <td><button onClick={onClick}>X</button></td>
+            <td className="noteCell">
+                <Editable
+                    text={note}
+                    placeholder="Write a note text"
+                    childRef={inputRef}
+                    type="input">
+                    <input
+                        ref={inputRef}
+                        type="text"
+                        name="note"
+                        placeholder="Write a note text"
+                        value={note}
+                        onChange={e => updateItem(e.target.value)} />
+                </Editable>
+            </td>
+            <td className="linkedTagsCell">{props.linkedTags}</td>
+        </tr>
+    );
 }
+
+export default NoteItem;
