@@ -37,7 +37,9 @@ const TagList = (props) => {
                             key={tag.id}
                             id={tag.id}
                             name={tag.name}
-                            removeItem={props.removeItem} />
+                            removeItem={props.removeItem}
+                            updateItem={props.updateItem}
+                        />
                     })
                 }
             </table>
