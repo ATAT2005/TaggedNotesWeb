@@ -37,10 +37,10 @@ namespace TaggedNotesWebReact
 				configuration.RootPath = "ClientApp/build";
 			});
 
-			services.AddTransient<IUnitOfWork, UnitOfWork>();
-			services.AddTransient<INoteService, NoteService>();
-			services.AddTransient<ITagService, TagService>();
-			services.AddTransient<ILinkService, LinkService>();
+			services.AddScoped<IUnitOfWork, UnitOfWork>();
+			services.AddScoped<INoteService, NoteService>();
+			services.AddScoped<ITagService, TagService>();
+			services.AddScoped<ILinkService, LinkService>();
 
 			services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 		}
