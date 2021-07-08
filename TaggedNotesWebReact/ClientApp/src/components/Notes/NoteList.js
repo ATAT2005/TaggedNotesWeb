@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import { NoteItem } from './NoteItem';
+import NoteItem from './NoteItem';
 
 /// class component - a list of notes
 export class NoteList extends React.Component {
@@ -38,7 +38,9 @@ export class NoteList extends React.Component {
                             id={note.id}
                             text={note.text}
                             linkedTags={note.linkedTags}
-                            removeItem={this.props.removeItem} />
+                            removeItem={this.props.removeItem}
+                            updateItem={this.props.updateItem}
+                        />
                     })
                 }
                 </table>
