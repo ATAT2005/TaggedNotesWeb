@@ -67,12 +67,14 @@ namespace TaggedNotesWebReact.Controllers
 
 			foreach (var tag in tags)
 			{
-				var existingNote = _tagService.GetTag(tag.Id);
-				if (existingNote == null)
-				{
-					var addedTag = _tagModelToDtoMapper.Map<TagModel, TagDTO>(tag);
-					_tagService.AddTag(addedTag);
-				}
+				var dtoTag = _tagModelToDtoMapper.Map<TagModel, TagDTO>(tag);
+
+				var existingTag = _tagService.GetTag(tag.Id);
+
+				if (existingTag == null)
+					_tagService.AddTag(dtoTag);
+				else
+					_tagService.UpdateTag(dtoTag);
 			}
 
 			foreach (var tagDto in tagsDto)
