@@ -39,8 +39,13 @@ namespace TaggedNotesWeb.DataAccess.Repositories
 
 		public void Update(NoteDAL note)
 		{
-			_context.Notes.Update(note);
-			_context.Entry(note).State = EntityState.Modified;
+			var result = _context.Notes.SingleOrDefault(n => n.Id == note.Id);
+
+			if (result != null)
+			{
+				result.Text = note.Text;
+				_context.Notes.Update(result);
+			}
 		}
 
 		public void Delete(int? idNote)
