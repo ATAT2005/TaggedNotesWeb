@@ -16,6 +16,15 @@ const Tags = (props) => {
         setTags(newList);
     }
 
+    function updateItem(id, tagName)
+    {
+        var tag = tags.find((e) => { return e.id === id; });
+
+        if (tag !== undefined && tag !== null) {
+            tag.name = tagName;
+        }
+    }
+
     function getMaxId() {
         var max = tags.reduce((acc, cur) => acc = acc > cur.id ? acc : cur.id, 1);
 
@@ -45,7 +54,7 @@ const Tags = (props) => {
             <br />
             <div><AddNewTag tags={tags} addItem={addItem} getMaxId={getMaxId} /></div>
             <br />
-            <div><TagList items={tags} removeItem={removeItem} /></div>
+            <div><TagList items={tags} removeItem={removeItem} updateItem={updateItem} /></div>
         </div>
     );
 }
