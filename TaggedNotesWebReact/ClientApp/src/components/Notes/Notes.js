@@ -21,6 +21,14 @@ export class Notes extends React.Component {
         this.setState({ notes: newList });
     }
 
+    updateItem = (id, noteText) => {
+        var note = this.state.notes.find((e) => { return e.id === id; });
+
+        if (note !== undefined && note !== null) {
+            note.text = noteText;
+        }
+    }
+
     getMaxId = () => {
         return this.state.notes.reduce((acc, cur) => acc = acc > cur.id ? acc : cur.id, 1);
     }
@@ -49,7 +57,7 @@ export class Notes extends React.Component {
                 <div><br /></div>
                 <div><AddNewNote notes={this.state.notes} addItem={this.addItem} getMaxId={this.getMaxId} /></div>
                 <div><br /></div>
-                <div><NoteList items={this.state.notes} removeItem={this.removeItem} /></div>
+                <div><NoteList items={this.state.notes} removeItem={this.removeItem} updateItem={this.updateItem} /></div>
             </div>
         );
     }
