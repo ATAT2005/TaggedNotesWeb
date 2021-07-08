@@ -39,7 +39,13 @@ namespace TaggedNotesWeb.DataAccess.Repositories
 
 		public void Update(TagDAL tag)
 		{
-			_context.Tags.Update(tag);
+			var result = _context.Tags.SingleOrDefault(t => t.Id == tag.Id);
+		
+			if (result != null)
+			{
+				result.Name = tag.Name;
+				_context.Tags.Update(result);
+			}
 		}
 
 		public void Delete(int? idTag)
